@@ -6,8 +6,10 @@ import axios from "axios";
 import TEST_PUZZLES from "./data/puzzles";
 import "./App.css";
 
-const serverPort = 8000;
-const serverURL = "http://localhost:" + serverPort;
+
+const serverURL = "https://sudoku-backend-xeaa.onrender.com/";
+// const serverPort = 8000;
+// const serverURL = "http://localhost:" + serverPort;
 
 const emptyGame = [
   [-1, -1, -1, -1, -1, -1, -1, -1, -1],
