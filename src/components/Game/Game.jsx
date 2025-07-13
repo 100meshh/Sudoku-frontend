@@ -128,7 +128,7 @@ const Game = ({ GameState, setGameState, InitialState, setInitialState, Time, se
       }
     }
     if (isValid) {
-      setBottomText("Congrats you solved the puzzle!");
+      setBottomText("Correct submission!");
       setTimerOn(false);
       if (isLoggedIn) {
         let points;
@@ -147,7 +147,7 @@ const Game = ({ GameState, setGameState, InitialState, setInitialState, Time, se
         submitToserver(data);
       }
     } else {
-      setBottomText("Your solution is Incorrect!");
+      setBottomText("Incorrect submission!");
     }
   }
 

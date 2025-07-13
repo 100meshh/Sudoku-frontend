@@ -7,9 +7,8 @@ import TEST_PUZZLES from "./data/puzzles";
 import "./App.css";
 
 
-const serverURL = "https://sudoku-backend-xeaa.onrender.com/";
-// const serverPort = 8000;
-// const serverURL = "http://localhost:" + serverPort;
+// const serverURL = "https://sudoku-backend-xeaa.onrender.com/";
+const serverURL = "https://sudoku-backend-04y2.onrender.com";
 
 const emptyGame = [
   [-1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -84,6 +83,13 @@ function App() {
     let file;
     if (e.target.files) {
       file = e.target.files[0];
+    }
+    // Check for file existence and .txt extension
+    if (!file) return;
+    if (!file.name.toLowerCase().endsWith('.txt')) {
+      setBottomText('Please upload a .txt file only.');
+      e.target.value = "";
+      return;
     }
     const Reader = new FileReader();
     Reader.readAsText(file);
@@ -167,13 +173,12 @@ function App() {
   }
 
   function handleRegister() {
-    console.log('Register clicked');
     axios
       .post(serverURL + "/register", { username: usrname, password: pass })
       .then((response) => {
         if (response.data.message === "Success") {
           setisLoggedIn(true);
-          setBottomText("Successfully registered and logged in!");
+          setBottomText("User registered");
           getDetails();
         } else {
           setBottomText(response.data.message || "Registration failed.");
@@ -193,11 +198,14 @@ function App() {
         localStorage.setItem("token", token);
         if (response.data.message === "Success") {
           setisLoggedIn(true);
-          alert("Successfully logged in!");
+          setBottomText("User logged in");
           getDetails();
+        } else {
+          setBottomText(response.data.message || "Login failed.");
         }
       })
       .catch((error) => {
+        setBottomText("Login error: " + (error.response?.data?.message || error.message));
         console.error(error);
       });
   }
